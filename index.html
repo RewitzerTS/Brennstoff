@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hausgemachte Chili-Saucen | Feuer, Freude & Geschmack</title>
+  <meta name="description" content="Private, hausgemachte Chili-Saucen mit Charakter: Chica Picante, Feuer & Freude, Gringo Verde und Inferno." />
+  <style>
+    :root {
+      --bg: #120b0f;
+      --ink: #fff4d6;
+      --muted: #e8cfa1;
+      --fire: #ff3a18;
+      --mango: #f4b51d;
+      --pink: #ef5bb8;
+      --turquoise: #12c7d3;
+      --purple: #361a78;
+      --green: #40aa45;
+      --card: rgba(255,244,214,.08);
+      --line: rgba(255,244,214,.18);
+      --shadow: 0 24px 70px rgba(0,0,0,.35);
+      --radius: 28px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Impact, Haettenschweiler, "Arial Narrow Bold", system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(239,91,184,.28), transparent 28rem),
+        radial-gradient(circle at 90% 20%, rgba(255,58,24,.22), transparent 30rem),
+        radial-gradient(circle at 50% 110%, rgba(244,181,29,.18), transparent 32rem),
+        var(--bg);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .10;
+      background-image: linear-gradient(90deg, transparent 95%, rgba(255,255,255,.18) 100%), linear-gradient(0deg, transparent 95%, rgba(255,255,255,.12) 100%);
+      background-size: 32px 32px;
+      mix-blend-mode: screen;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .wrap { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(16px);
+      background: rgba(18,11,15,.78);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      font-size: clamp(22px, 3vw, 34px);
+      line-height: .9;
+    }
+    .brand-mark {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--bg);
+      background: conic-gradient(from 0deg, var(--fire), var(--mango), var(--pink), var(--turquoise), var(--fire));
+      box-shadow: 0 0 0 5px rgba(255,255,255,.08);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: system-ui, sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+    }
+    .nav-links a, .cart-button {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 11px 15px;
+      background: rgba(255,244,214,.06);
+    }
+    .cart-button {
+      color: var(--ink);
+      cursor: pointer;
+      font: inherit;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .cart-count {
+      min-width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: var(--fire);
+      color: white;
+      font-size: 12px;
+    }
+
+    .hero {
+      min-height: calc(100vh - 76px);
+      display: grid;
+      align-items: center;
+      padding: 76px 0 56px;
+      position: relative;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.04fr .96fr;
+      gap: 44px;
+      align-items: center;
+    }
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(244,181,29,.35);
+      color: var(--mango);
+      background: rgba(244,181,29,.10);
+      font-family: system-ui, sans-serif;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-size: 13px;
+    }
+    h1 {
+      margin: 18px 0 18px;
+      text-transform: uppercase;
+      letter-spacing: .035em;
+      font-size: clamp(58px, 10.5vw, 150px);
+      line-height: .82;
+      text-shadow: 6px 6px 0 rgba(0,0,0,.45);
+    }
+    h1 span { color: var(--fire); display: block; }
+    .hero-copy {
+      max-width: 650px;
+      font-family: system-ui, sans-serif;
+      font-size: clamp(17px, 2vw, 21px);
+      line-height: 1.55;
+      color: var(--muted);
+      font-weight: 650;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 0 21px;
+      border-radius: 999px;
+      border: 2px solid transparent;
+      font-family: system-ui, sans-serif;
+      font-weight: 950;
+      letter-spacing: .02em;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      color: #160a0d;
+      background: var(--mango);
+      box-shadow: 0 14px 34px rgba(244,181,29,.22);
+    }
+    .btn-ghost {
+      color: var(--ink);
+      border-color: var(--line);
+      background: rgba(255,244,214,.06);
+    }
+
+    .label-stack {
+      position: relative;
+      min-height: 600px;
+    }
+    .label-card {
+      position: absolute;
+      border-radius: 34px;
+      overflow: hidden;
+      border: 1px solid rgba(255,244,214,.22);
+      box-shadow: var(--shadow);
+      background: #2a1017;
+    }
+    .label-card:nth-child(1) { width: 64%; right: 0; top: 0; transform: rotate(4deg); }
+    .label-card:nth-child(2) { width: 54%; left: 0; top: 92px; transform: rotate(-8deg); }
+    .label-card:nth-child(3) { width: 60%; right: 54px; bottom: 20px; transform: rotate(-2deg); }
+    .label-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 45%, rgba(0,0,0,.35));
+      pointer-events: none;
+    }
+
+    section { padding: 88px 0; }
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 34px;
+    }
+    h2 {
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      font-size: clamp(42px, 7vw, 88px);
+      line-height: .88;
+    }
+    .section-title p {
+      margin: 0;
+      max-width: 460px;
+      color: var(--muted);
+      font-family: system-ui, sans-serif;
+      line-height: 1.55;
+      font-weight: 650;
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 32px;
+      align-items: stretch;
+    }
+    .about-photo, .about-text, .flavor-panel, .cart-panel {
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .about-photo img { width: 100%; height: 100%; object-fit: cover; min-height: 430px; }
+    .about-text { padding: clamp(24px, 4vw, 44px); }
+    .about-text h3 {
+      margin: 0 0 18px;
+      font-size: clamp(32px, 5vw, 58px);
+      line-height: .92;
+      text-transform: uppercase;
+      color: var(--mango);
+    }
+    .about-text p, .about-text li {
+      font-family: system-ui, sans-serif;
+      color: var(--muted);
+      line-height: 1.65;
+      font-weight: 650;
+      font-size: 17px;
+    }
+    .about-text ul { padding-left: 20px; }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+    .product {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+    .product-media {
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      background: rgba(0,0,0,.18);
+    }
+    .product-media img { width: 100%; height: 100%; object-fit: cover; }
+    .product-body { padding: 20px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+    .product h3 {
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      font-size: 32px;
+      line-height: .92;
+    }
+    .product p {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      color: var(--muted);
+      line-height: 1.5;
+      font-weight: 650;
+      font-size: 15px;
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+    .tag {
+      font-family: system-ui, sans-serif;
+      font-size: 12px;
+      font-weight: 900;
+      border: 1px solid var(--line);
+      padding: 7px 9px;
+      border-radius: 999px;
+      color: var(--ink);
+      background: rgba(255,255,255,.05);
+    }
+    .price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 4px;
+    }
+    .price { color: var(--mango); font-size: 28px; line-height: 1; }
+    .mini-btn {
+      border: 0;
+      border-radius: 999px;
+      background: var(--fire);
+      color: white;
+      padding: 11px 13px;
+      font-family: system-ui, sans-serif;
+      font-weight: 950;
+      cursor: pointer;
+    }
+
+    .flavors {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+    .flavor-panel { padding: 22px; position: relative; overflow: hidden; }
+    .flavor-panel::before {
+      content: "";
+      position: absolute;
+      inset: auto -25% -50% -25%;
+      height: 120px;
+      background: radial-gradient(circle, currentColor, transparent 62%);
+      opacity: .20;
+    }
+    .flavor-panel strong {
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      font-size: 31px;
+      line-height: .95;
+      margin-bottom: 10px;
+    }
+    .heat {
+      display: flex;
+      gap: 5px;
+      margin: 12px 0;
+      color: var(--fire);
+      font-size: 22px;
+      letter-spacing: 1px;
+    }
+    .flavor-panel p { margin: 0; font-family: system-ui, sans-serif; color: var(--muted); line-height: 1.55; font-weight: 650; }
+
+    .cart-layout {
+      display: grid;
+      grid-template-columns: 1fr .78fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .cart-panel { padding: 26px; }
+    .cart-panel h3 { margin: 0 0 16px; font-size: 38px; text-transform: uppercase; color: var(--mango); }
+    .cart-items { display: grid; gap: 12px; }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(0,0,0,.18);
+      font-family: system-ui, sans-serif;
+      font-weight: 750;
+    }
+    .empty { font-family: system-ui, sans-serif; color: var(--muted); line-height: 1.6; }
+    .total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--line);
+      margin-top: 18px;
+      padding-top: 18px;
+      font-size: 34px;
+      color: var(--mango);
+    }
+    .checkout-note {
+      margin-top: 14px;
+      font-family: system-ui, sans-serif;
+      color: var(--muted);
+      line-height: 1.55;
+      font-weight: 650;
+      font-size: 14px;
+    }
+
+    .warning-strip {
+      margin: 18px 0 0;
+      border-radius: 24px;
+      padding: 22px;
+      background: linear-gradient(90deg, var(--fire), var(--pink), var(--mango));
+      color: #17080d;
+      text-transform: uppercase;
+      font-size: clamp(28px, 5vw, 58px);
+      line-height: .92;
+      letter-spacing: .035em;
+      box-shadow: var(--shadow);
+    }
+
+    footer {
+      padding: 50px 0 70px;
+      border-top: 1px solid var(--line);
+      font-family: system-ui, sans-serif;
+      color: var(--muted);
+      line-height: 1.6;
+      font-weight: 650;
+    }
+    .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+    .chica { color: var(--pink); }
+    .freude { color: var(--mango); }
+    .verde { color: #39d35e; }
+    .inferno { color: var(--fire); }
+
+    @media (max-width: 980px) {
+      .hero-grid, .about, .cart-layout, .footer-grid { grid-template-columns: 1fr; }
+      .label-stack { min-height: 520px; order: -1; }
+      .products, .flavors { grid-template-columns: repeat(2, 1fr); }
+      .section-title { display: block; }
+      .section-title p { margin-top: 14px; }
+    }
+    @media (max-width: 680px) {
+      .nav-inner { align-items: flex-start; flex-direction: column; padding: 14px 0; }
+      .nav-links { width: 100%; overflow-x: auto; padding-bottom: 4px; }
+      .hero { padding-top: 42px; }
+      .label-stack { min-height: 430px; }
+      .label-card:nth-child(1) { width: 78%; }
+      .label-card:nth-child(2) { width: 68%; top: 80px; }
+      .label-card:nth-child(3) { width: 74%; right: 20px; }
+      .products, .flavors { grid-template-columns: 1fr; }
+      h1 { font-size: 64px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top" aria-label="Startseite"><span class="brand-mark">🌶</span><span>Hausgemachte<br>Chili-Sauce</span></a>
+      <div class="nav-links">
+        <a href="#about">Über mich</a>
+        <a href="#products">Produkte</a>
+        <a href="#heat">Schärfegrad</a>
+        <button class="cart-button" onclick="document.querySelector('#cart').scrollIntoView({behavior:'smooth'})">Warenkorb <span class="cart-count" id="cartCount">0</span></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="kicker">Kleinserie · privat gekocht · große Klappe</span>
+          <h1>Feuer im Glas. <span>Freude auf dem Teller.</span></h1>
+          <p class="hero-copy">Chili-Saucen mit Charakter: mal fruchtig-verführerisch, mal grün und gentlemanlike, mal gnadenlos infernalisch. Jede Flasche ist hausgemacht, direkt, laut und mit Liebe abgeschmeckt.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#products">Saucen entdecken</a>
+            <a class="btn btn-ghost" href="#about">Die Geschichte dahinter</a>
+          </div>
+          <div class="warning-strip">Warnung: Macht jedes Sandwich schnell zum Favoriten.</div>
+        </div>
+
+        <div class="label-stack" aria-label="Label Collage">
+          <figure class="label-card"><img src="assets/Inferno_Front.png" alt="Inferno Label" /></figure>
+          <figure class="label-card"><img src="assets/ChicaPicante_Front.png" alt="Chica Picante Label" /></figure>
+          <figure class="label-card"><img src="assets/GringoVerde_Front.png" alt="Gringo Verde Label" /></figure>
+        </div>
+      </div>
+    </header>
+
+    <section id="about">
+      <div class="wrap">
+        <div class="section-title">
+          <h2>Über mich</h2>
+          <p>Keine sterile Manufaktur-Behauptung, sondern ehrliche Kleinserie aus der privaten Küche: probieren, verfeinern, nachlegen.</p>
+        </div>
+        <div class="about">
+          <div class="about-photo"><img src="assets/label_rund.png" alt="Hausgemachte Chipotle Sauce Label" /></div>
+          <div class="about-text">
+            <h3>Ich koche Saucen, die man nicht überliest.</h3>
+            <p>Meine Labels sind laut, frech und ein bisschen gefährlich. Genau so sollen auch die Saucen wirken: handgemacht, intensiv und mit einer klaren Persönlichkeit.</p>
+            <p>Ob milde Jalapeño, Mango-Habanero oder Ghost-Pepper-Inferno: Jede Sorte bekommt ihre eigene Bühne, ihre eigene Warnung und ihren eigenen Platz im Kühlschrank.</p>
+            <ul>
+              <li>Hausgemacht in kleinen Chargen</li>
+              <li>Von mild bis gnadenlos scharf</li>
+              <li>Perfekt zu Tacos, Burgern, Sandwiches, Fleisch, Gemüse und allem, was mehr Mut verträgt</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="products">
+      <div class="wrap">
+        <div class="section-title">
+          <h2>Produkte</h2>
+          <p>Vier Charaktere, vier Farben, vier Eskalationsstufen. Preise sind Platzhalter und können später angepasst werden.</p>
+        </div>
+        <div class="products" id="productGrid"></div>
+      </div>
+    </section>
+
+    <section id="heat">
+      <div class="wrap">
+        <div class="section-title">
+          <h2>Schärfegrad</h2>
+          <p>Damit niemand versehentlich mit Inferno frühstückt. Oder genau deshalb.</p>
+        </div>
+        <div class="flavors">
+          <article class="flavor-panel verde">
+            <strong>Gringo Verde</strong>
+            <div class="heat">🌶 🌶</div>
+            <p>Mild, frisch, grün. Der Gentleman unter den Chilis.</p>
+          </article>
+          <article class="flavor-panel">
+            <strong>Compadre Chipotle</strong>
+            <div class="heat">🌶 🌶</div>
+            <p>Rauchig, mild und perfekt für Burger & Sandwiches.</p>
+          </article>
+          <article class="flavor-panel chica">
+            <strong>Chica Picante</strong>
+            <div class="heat">🌶 🌶 🌶</div>
+            <p>Mango trifft Habanero: süß, fruchtig, verführerisch.</p>
+          </article>
+          <article class="flavor-panel inferno">
+            <strong>Inferno</strong>
+            <div class="heat">🌶 🌶 🌶 🌶 🌶</div>
+            <p>Ghost Pepper & Habanero. Nur für Mutige.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="cart">
+      <div class="wrap">
+        <div class="section-title">
+          <h2>Warenkorb</h2>
+          <p>Ein einfacher Demo-Warenkorb für den ersten GitHub-Pages-Entwurf. Später kann daraus ein echtes Shopsystem werden.</p>
+        </div>
+        <div class="cart-layout">
+          <div class="cart-panel">
+            <h3>Deine Auswahl</h3>
+            <div class="cart-items" id="cartItems"><p class="empty">Noch keine Sauce im Korb. Das ist mutig — aber falsch.</p></div>
+            <div class="total"><span>Summe</span><span id="cartTotal">0,00 €</span></div>
+            <p class="checkout-note">Checkout-Platzhalter: Für einen echten Verkauf brauchst du später Impressum, Datenschutz, Widerruf/AGB, Versandinformationen und eine Zahlungs-/Bestelllösung.</p>
+          </div>
+          <div class="cart-panel">
+            <h3>Bestellanfrage</h3>
+            <p class="empty">Für die erste Version reicht ein Kontakt-Button. Er öffnet eine E-Mail mit der aktuellen Auswahl.</p>
+            <button class="btn btn-primary" onclick="checkoutByMail()">Bestellung per E-Mail anfragen</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div>
+        <strong>Hausgemachte Chili-Sauce</strong><br>
+        Private Kleinserie · mit Liebe gekocht · mit Warnung serviert
+      </div>
+      <div>
+        Platzhalter für Impressum, Datenschutz, Kontakt und Social Links. Für GitHub Pages einfach diese Datei als <strong>index.html</strong> veröffentlichen und die Bilder in den Ordner <strong>assets</strong> legen.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const products = [
+      {
+        name: "Gringo Verde",
+        image: "assets/GringoVerde_Front.png",
+        desc: "Geröstete Jalapeño, mild, frisch und ausgewogen. Der Einstieg in die Welt des Feuers.",
+        tags: ["mild", "jalapeño", "grün"],
+        price: 6.90,
+        className: "verde"
+      },
+      {
+        name: "Chica Picante",
+        image: "assets/ChicaPicante_Front.png",
+        desc: "Mango und Habanero: fruchtige Verführung mit scharfer Leidenschaft.",
+        tags: ["fruchtig", "habanero", "mango"],
+        price: 7.90,
+        className: "chica"
+      },
+      {
+        name: "Feuer & Freude",
+        image: "assets/Feuer_und_Freude.jpg",
+        desc: "Habanero-Hitze, Thai-Chili-Kick und eine ordentliche Portion Liebe.",
+        tags: ["extra scharf", "thai chili", "habanero"],
+        price: 8.50,
+        className: "freude"
+      },
+      {
+        name: "Inferno",
+        image: "assets/Inferno_Front.png",
+        desc: "Ghost Pepper und Habanero. Hier gibt es kein Zurück. Nur für Mutige.",
+        tags: ["extrem", "ghost pepper", "habanero"],
+        price: 9.90,
+        className: "inferno"
+      }
+    ];
+
+    const cart = new Map();
+    const formatEuro = value => value.toLocaleString("de-DE", { style: "currency", currency: "EUR" });
+
+    function renderProducts() {
+      const grid = document.getElementById("productGrid");
+      grid.innerHTML = products.map((product, index) => `
+        <article class="product">
+          <div class="product-media"><img src="${product.image}" alt="${product.name} Label" /></div>
+          <div class="product-body">
+            <h3 class="${product.className}">${product.name}</h3>
+            <p>${product.desc}</p>
+            <div class="tags">${product.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}</div>
+            <div class="price-row">
+              <span class="price">${formatEuro(product.price)}</span>
+              <button class="mini-btn" onclick="addToCart(${index})">In den Korb</button>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function addToCart(index) {
+      const current = cart.get(index) || 0;
+      cart.set(index, current + 1);
+      renderCart();
+    }
+
+    function removeFromCart(index) {
+      const current = cart.get(index) || 0;
+      if (current <= 1) cart.delete(index);
+      else cart.set(index, current - 1);
+      renderCart();
+    }
+
+    function renderCart() {
+      const items = document.getElementById("cartItems");
+      const count = [...cart.values()].reduce((sum, qty) => sum + qty, 0);
+      const total = [...cart.entries()].reduce((sum, [index, qty]) => sum + products[index].price * qty, 0);
+      document.getElementById("cartCount").textContent = count;
+      document.getElementById("cartTotal").textContent = formatEuro(total);
+
+      if (!count) {
+        items.innerHTML = '<p class="empty">Noch keine Sauce im Korb. Das ist mutig — aber falsch.</p>';
+        return;
+      }
+
+      items.innerHTML = [...cart.entries()].map(([index, qty]) => {
+        const product = products[index];
+        return `
+          <div class="cart-item">
+            <span>${qty} × ${product.name}</span>
+            <span>${formatEuro(product.price * qty)} <button class="mini-btn" onclick="removeFromCart(${index})" aria-label="${product.name} entfernen">−</button></span>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function checkoutByMail() {
+      const selection = [...cart.entries()].map(([index, qty]) => `${qty}x ${products[index].name}`).join("%0D%0A");
+      const body = selection || "Ich interessiere mich für deine Chili-Saucen.";
+      window.location.href = `mailto:deine-mail@example.com?subject=Bestellanfrage%20Chili-Sauce&body=${body}`;
+    }
+
+    renderProducts();
+    renderCart();
+  </script>
+</body>
+</html>
