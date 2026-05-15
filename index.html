@@ -94,6 +94,30 @@
       font-weight: 800;
       font-size: 14px;
     }
+    .menu-toggle {
+      display: none;
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,244,214,.08);
+      color: var(--ink);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .menu-toggle span {
+      width: 20px;
+      height: 2px;
+      background: currentColor;
+      border-radius: 999px;
+      transition: transform .2s ease, opacity .2s ease;
+    }
+    .menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
     .nav-links a, .cart-button {
       border: 1px solid var(--line);
       border-radius: 999px;
@@ -445,8 +469,18 @@
       .section-title p { margin-top: 14px; }
     }
     @media (max-width: 680px) {
-      .nav-inner { align-items: flex-start; flex-direction: column; padding: 14px 0; }
-      .nav-links { width: 100%; overflow-x: auto; padding-bottom: 4px; }
+      .nav-inner { align-items: center; flex-wrap: wrap; padding: 14px 0; }
+      .menu-toggle { display: inline-flex; margin-left: auto; }
+      .nav-links {
+        width: 100%;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding-top: 10px;
+      }
+      .nav-links.is-open { display: flex; }
+      .nav-links a, .cart-button { width: 100%; justify-content: center; }
       .hero { padding-top: 42px; }
       .label-stack { min-height: 430px; }
       .label-card:nth-child(1) { width: 78%; }
@@ -461,7 +495,10 @@
   <nav class="nav">
     <div class="wrap nav-inner">
       <a class="brand" href="#top" aria-label="Startseite"><span class="brand-mark">🌶</span><span>Hausgemachte<br>Chili-Sauce</span></a>
-      <div class="nav-links">
+      <button class="menu-toggle" id="menuToggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" id="navLinks">
         <a href="#about">Über mich</a>
         <a href="#products">Produkte</a>
         <a href="#heat">Schärfegrad</a>
@@ -591,6 +628,29 @@
   </footer>
 
   <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+    const closeMobileMenu = () => {
+      menuToggle.setAttribute("aria-expanded", "false");
+      navLinks.classList.remove("is-open");
+    };
+
+    menuToggle.addEventListener("click", () => {
+      const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
+      menuToggle.setAttribute("aria-expanded", String(!isExpanded));
+      navLinks.classList.toggle("is-open", !isExpanded);
+    });
+
+    navLinks.querySelectorAll("a, button").forEach(el => {
+      el.addEventListener("click", () => {
+        if (window.innerWidth <= 680) closeMobileMenu();
+      });
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 680) closeMobileMenu();
+    });
+
     const products = [
       {
         name: "Gringo Verde",
