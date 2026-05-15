@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Logo">
+  <rect width="512" height="512" fill="#000"/>
+  <g fill="#f3e5d6">
+    <ellipse cx="256" cy="278" rx="118" ry="138"/>
+    <ellipse cx="256" cy="182" rx="102" ry="86"/>
+    <rect x="145" y="169" width="22" height="112" rx="11"/>
+    <rect x="345" y="169" width="22" height="112" rx="11"/>
+    <rect x="196" y="200" width="56" height="10" rx="5"/>
+    <rect x="260" y="200" width="56" height="10" rx="5"/>
+    <path d="M192 282c20 16 44 24 64 24s44-8 64-24c-4 24-24 44-64 44s-60-20-64-44z"/>
+    <rect x="208" y="326" width="96" height="22" rx="11"/>
+    <path d="M220 326c5 14 18 23 36 23s31-9 36-23h-72z" fill="#000"/>
+  </g>
+  <g fill="#000">
+    <ellipse cx="218" cy="238" rx="22" ry="10"/>
+    <ellipse cx="294" cy="238" rx="22" ry="10"/>
+    <path d="M186 150c18-32 48-52 70-60-46 2-91 31-108 79-12 35-7 78-7 96 9-17 16-32 45-47z"/>
+    <path d="M326 150c-18-32-48-52-70-60 46 2 91 31 108 79 12 35 7 78 7 96-9-17-16-32-45-47z"/>
+    <path d="M174 312c18 37 46 67 82 84 36-17 64-47 82-84-25 8-52 12-82 12s-57-4-82-12z"/>
+  </g>
+</svg>
